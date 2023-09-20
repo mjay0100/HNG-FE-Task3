@@ -1,29 +1,26 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState, useEffect } from "react";
 import { database } from "../firebase";
 import { useNavigate } from "react-router-dom";
-
-const login = () => {
+const signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const history = useNavigate();
 
-  const signIn = (e) => {
+  const signUp = (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(database, email, password)
+    createUserWithEmailAndPassword(database, email, password)
       .then((userCredential) => {
         console.log(userCredential);
         history("/home");
       })
       .catch((error) => {
-        console.log(error);
         console.log(error.code);
         setError(error.code);
       });
   };
-
   useEffect(() => {
     const time = setTimeout(() => {
       setError(error.code);
@@ -34,8 +31,9 @@ const login = () => {
   return (
     <div className="sign-in-container">
       {error && <div>{error}</div>}
-      <form onSubmit={signIn}>
-        <h1>Log In to your Account</h1>
+
+      <form onSubmit={signUp}>
+        <h1>Create Account</h1>
         <input
           type="email"
           placeholder="Enter your email"
@@ -48,10 +46,10 @@ const login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         ></input>
-        <button type="submit">Log In</button>
+        <button type="submit">Sign Up</button>
       </form>
     </div>
   );
 };
 
-export default login;
+export default signup;
