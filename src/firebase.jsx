@@ -6,12 +6,12 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBYKkflaKkPFMoV2QuIIbUAoV0KUZdzzI4",
+  apiKey: import.meta.env.VITE_firebaseAPI,
   authDomain: "hng-image-dnd-chagllenge.firebaseapp.com",
   projectId: "hng-image-dnd-chagllenge",
   storageBucket: "hng-image-dnd-chagllenge.appspot.com",
   messagingSenderId: "728603320604",
-  appId: "1:728603320604:web:36be71459f5a5a1fe2dad9",
+  appId: import.meta.env.VITE_firebaseAppId,
 };
 
 // Initialize Firebase
