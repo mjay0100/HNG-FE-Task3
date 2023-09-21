@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState, useEffect } from "react";
 import { database } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 const login = () => {
   const [email, setEmail] = useState("");
@@ -32,25 +33,56 @@ const login = () => {
   }, [error]);
 
   return (
-    <div className="sign-in-container">
-      {error && <div>{error}</div>}
+    <>
+      <Navbar />
+
       <form onSubmit={signIn}>
-        <h1>Log In to your Account</h1>
-        <input
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        ></input>
-        <input
-          type="password"
-          placeholder="Enter your password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        ></input>
-        <button type="submit">Log In</button>
+        <div className="bg-grey-lighter min-h-screen flex flex-col">
+          <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+            <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+              <h1 className="mb-8 text-base text-center">
+                {" "}
+                {error && <div>{error}</div>}
+              </h1>
+              <h1 className="mb-8 text-3xl text-center">Login</h1>
+
+              <input
+                type="email"
+                className="block border border-grey-light w-full p-3 rounded mb-4"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+              />
+
+              <input
+                type="password"
+                className="block border border-grey-light w-full p-3 rounded mb-4"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+              />
+
+              <button
+                className="w-full text-center py-3 rounded bg-green hover:bg-green-dark  my-1"
+                type="submit"
+              >
+                Login
+              </button>
+            </div>
+            <div className="text-grey-dark mt-6">
+              Don;t have an account?
+              <a
+                className="no-underline border-b border-blue text-blue-400"
+                href="./signup"
+              >
+                sign up
+              </a>
+              .
+            </div>
+          </div>
+        </div>
       </form>
-    </div>
+    </>
   );
 };
 
